@@ -124,6 +124,13 @@ class Weibo(object):
             print('Error: ', e)
             traceback.print_exc()
 
+
+    def get_user_followers(self):
+        url = 'https://weibo.cn/5571549493/follow'
+        selector = self.handle_html(url)
+        print(selector)
+        return selector
+
     def handle_garbled(self, info):
         """处理乱码"""
         try:
@@ -1083,6 +1090,13 @@ class Weibo(object):
                 print('*' * 100)
                 if self.user_config_file_path:
                     self.update_user_config_file(self.user_config_file_path)
+
+                select =  self.get_user_followers()
+                text = select.xpath('//a/text()')
+                print(text)
+                text = select.xpath('//a[contains(@href,"https://weibo.cn/u/")]/text()')
+                len(text)
+
         except Exception as e:
             print('Error: ', e)
             traceback.print_exc()
